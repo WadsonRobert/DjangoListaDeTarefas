@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Lista de Tarefas{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <style>
+    body, html {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #F5F5F5;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: rgb(85, 34, 133);
+      color: #fff;
+      text-align: center;
+    }
+
+    footer {
+      background-color: #ccc;
+      color: #333;
+      padding: 20px;
+      text-align: center;
+      margin-top: auto;
+      width: 100%;
+    }
+
+    nav {
+      background-color: rgb(85, 34, 133);
+      color: #fff;
+      height: 50px;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav form {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    nav ul li {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 15px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: rgb(36, 12, 59);
+    }
+
+    nav ul li.active a {
+      background-color: #666;
+    }
+
+    nav ul li.active a:hover {
+      background-color: #999;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        height: auto;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      nav form {
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px;
+      }
+
+      nav a {
+        padding: 10px;
+        font-size: 14px;
+      }
+
+      footer {
+        padding: 15px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      nav {
+        padding: 10px;
+      }
+
+      nav a {
+        font-size: 12px;
+        padding: 8px;
+      }
+
+      footer {
+        font-size: 12px;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li>Lista de tarefas</li>
+        <li><a href="{% url 'new_task' %}">Nova tarefa</a></li>
+      </ul>
+      <form method="GET" action="{% url 'tasks_list' %}">
+        <input type="text" name="search" placeholder="buscar tarefas...">
+        <button type="submit">Buscar</button>
+      </form>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Wadson Robert</p>
+  </footer>
+</body>
+
+</html>
+

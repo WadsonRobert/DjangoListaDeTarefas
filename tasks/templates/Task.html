@@ -1,0 +1,177 @@
+{% extends "base.html" %} {% block content %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+
+<head>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap");
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Roboto Slab", serif;
+    }
+
+    main {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      padding: 15px;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+
+    .task-card {
+      display: grid;
+      gap: 0;
+      border: 2px solid rgb(85, 34, 133);
+      border-radius: 10px;
+      background-color: rgb(85, 34, 133);
+      max-width: 300px;
+      height: 350px;
+      width: 100%;
+      color: white;
+      padding: 10px;
+      margin: 5px;
+      position: relative;
+      -webkit-box-shadow: 0px 9px 16px 0px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 0px 9px 16px 0px rgba(0, 0, 0, 0.75);
+      box-shadow: 0px 9px 16px 0px rgba(0, 0, 0, 0.75);
+    }
+
+    .task-card h3 {
+      font-size: 16px;
+      height: 10px;
+    }
+
+    .task-card p {
+      padding-left: 10px;
+      padding-bottom: 10px;
+    }
+
+    .button-card {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+      background-color: transparent;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      flex-wrap: wrap;
+    }
+
+    .button-card button {
+      border: none;
+      background-color: #ffffff;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      box-sizing: border-box;
+      padding: 2px 3px;
+    }
+
+    .button-card button:hover {
+      background-color: rgba(219, 219, 219, 0.979);
+    }
+
+    #title {
+      width: 60px;
+      height: 20px;
+    }
+
+    #nav-card {
+      display: flex;
+      gap: 53%;
+      height: 20px;
+    }
+
+    .modal-content {
+      background-color: rgb(85, 34, 133);
+    }
+
+    @media (max-width: 768px) {
+      .task-card {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .task-card h3 {
+        font-size: 14px;
+      }
+
+      .task-card p {
+        font-size: 14px;
+      }
+
+      .button-card {
+        top: 5px;
+        right: 5px;
+      }
+
+      .button-card button {
+        padding: 1px 2px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      main {
+        padding: 10px;
+        gap: 5px;
+      }
+
+      .task-card {
+        padding: 5px;
+        margin: 2px;
+      }
+
+      .task-card h3 {
+        font-size: 12px;
+      }
+
+      .task-card p {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    {% if tasks_list %} {% for task in tasks_list %}
+    <div class="task-card">
+      <div id="nav-card">
+        <h3 id="title">Titulo:</h3>
+        <form action=""></form>
+        <div class="button-card">
+          <form method='GET' action="{% url 'task_update' pk=task.pk %}">
+            <button type="submit">
+              <img src="/media/lapis.png" alt="lapis" width="17" height="17" />
+            </button>
+          </form>
+          <form action="{% url 'task-delete' pk=task.pk%}" method="get">
+            <button type="submit">
+              <img src="/media/lixeira.png" alt="Lixeira" width="17" height="17" />
+            </button>
+          </form>
+        </div>
+      </div>
+      <p>{{ task.titulo }}</p>
+      <h3>Descrição:</h3>
+      <p>{{ task.descricao }}</p>
+      <h3>Data a completar:</h3>
+      <p>{{ task.data }}</p>
+      <h3>Feita:</h3>
+      <p>{{ task.feita }}</p>
+    </div>
+    {% endfor %} {% else %}
+    <p>Nenhuma tarefa encontrada</p>
+    {% endif %}
+  </main>
+</body>
+{% endblock %}
